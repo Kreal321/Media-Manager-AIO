@@ -1,0 +1,21 @@
+<nav class="navbar bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" [routerLink]="['/']">
+      MediaManager AIO
+    </a>
+    <div class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row">
+      <a class="nav-link text-white ms-4" [routerLink]="['/']">Home</a>
+      <a class="nav-link text-white ms-4" >Folders</a>
+      <a class="nav-link text-white ms-4" >Tasks</a>
+      <a class="nav-link text-white ms-4" >Accounts</a>
+      <a class="nav-link text-white ms-4" >Tools</a>
+      <a class="nav-link text-white ms-4" >Indexer</a>
+    </div>
+    <div class="navbar-nav">
+      <div class="text-end">
+        <a class="nav-link text-white ms-4" [routerLink]="['/settings']">Settings</a>
+<!--        <a class="btn btn-dark" href="{% url 'login' %}">Log In</a>-->
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,50 @@
+<footer class="text-muted fixed-bottom" style="background-color: rgba(0, 0, 0, 0.05);">
+  <!-- <div class="text-center p-2">
+      &copy; {{currentTime | date: 'yyyy'}}
+      <a class="text-primary fw-bold" href="javascript:void(0)">Kason</a>
+  </div> -->
+  <div class="d-flex align-items-center justify-content-md-between p-2">
+    <div class="col-6">
+      <div class="copyright">
+        &copy; {{currentTime | date: 'yyyy'}}
+        <a href="#" target="_blank">Kason Xu</a>. Build 0.1
+      </div>
+    </div>
+    <div class="col-6">
+      <ul class="nav nav-footer justify-content-md-end d-none d-md-flex">
+        <li class="nav-item">
+          <a href="" class="nav-link text-reset" target="_blank">Guide</a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link text-reset" target="_blank">GitHub</a>
+        </li>
+      </ul>
+
+      <ul class="nav nav-footer justify-content-end d-md-none">
+        <li class="nav-item mx-2 dropdown">
+          <div mdbDropdown class="dropdown dropup">
+            <a
+              class="nav-link dropdown-toggle text-reset"
+              role="button"
+              href="javascript:void(0)"
+              id="footerDocs"
+              mdbDropdownToggle
+              aria-expanded="false"
+            >
+              Docs
+            </a>
+            <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-end" aria-labelledby="footerDocs">
+              <li>
+                <a href="" class="dropdown-item text-reset" target="_blank">Guide</a>
+              </li>
+              <li>
+                <a href="" class="dropdown-item text-reset" target="_blank">GitHub</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</footer>
