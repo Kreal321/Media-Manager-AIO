@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title text-center">
+      <strong>{{ pikpak.username }}</strong> ({{ pikpak.password.substring(0,4) }}****)
+    </h4>
+    <h5 class="d-flex justify-content-evenly mb-4">
+      <span class="badge badge-success" *ngIf="pikpak.status === AccountStatus.ACTIVE">Active</span>
+      <span class="badge badge-success" *ngIf="pikpak.accessToken">Access Token</span>
+      <span class="badge badge-success" *ngIf="pikpak.refreshToken">Refresh Token</span>
+    </h5>
+    <p class="card-text"><strong>Type: </strong>Pikpak Account</p>
+    <p class="card-text"><strong>Added At: </strong>{{ pikpak.createdAt | date:"MMM dd, HH:mm:ss" }}</p>
+    <p class="card-text"><strong>Updated At: </strong>{{ pikpak.updatedAt | date:"MMM dd, HH:mm:ss" }}</p>
+    <p class="card-text"><strong>Operation History: </strong></p>
+    <ul class="list-group list-group-light list-group-small">
+      <li class="list-group-item px-3 {{history.success?'':'text-danger fw-bold'}}" *ngFor="let history of histories$ | async">
+        {{history.title}}
+        <span> at {{history.createdAt | date:"MM/dd, HH:mm"}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-evenly">
+      <button class="btn btn-primary px-5">Edit</button>
+      <button class="btn btn-danger px-5">Delete</button>
+<!--      <button class="btn btn-danger px-5">ReLogin</button>-->
+    </div>
+  </div>
+</div>

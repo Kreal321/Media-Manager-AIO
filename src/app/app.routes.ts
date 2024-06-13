@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { SettingsComponent } from "./features/settings/settings.component";
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
+import {PageSettingsComponent} from "./features/settings/pages/page-settings/page-settings.component";
 
 export const routes: Routes = [
-  { path: 'settings', component: SettingsComponent },
+  { path: 'settings', component: PageSettingsComponent },
   { path: '', component: DashboardComponent },
   // { path: '**', redirectTo: '' }
 ];

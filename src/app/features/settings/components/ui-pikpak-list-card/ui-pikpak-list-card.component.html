@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title text-center">PikPak</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Updated At</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr role="button" (click)="changePikpakSelected(pikpak.id)" *ngFor="let pikpak of pikpaks$ | async">
+            <th scope="row">{{ pikpak.username }}</th>
+            <td>{{ pikpak.createdAt | date:"MMM dd, HH:mm:ss"}}</td>
+            <td>{{ pikpak.status }}</td>
+            <td>
+              <i class="fas fa-angle-right"></i>
+            </td>
+          </tr>
+          <tr role="button">
+            <th colspan="3">Add a new account</th>
+            <td>
+              <i class="fas fa-angle-right"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="text-muted text-center">2 days ago</div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-6 col-xl-4">
+    <app-ui-pikpak-list-card [(pikpakSelected)]="pikpakSelected"></app-ui-pikpak-list-card>
+  </div>
+  <div class="col-6 col-xl-4" *ngIf="pikpakSelected">
+    <app-ui-pikpak-detail-card [pikpak]="pikpakSelected"></app-ui-pikpak-detail-card>
+  </div>
+</div>
