@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title text-center">
+      Prowlarr
+    </h5>
+    <p class="card-text text-center mb-4">Prowlarr is a tool to manage your indexers.</p>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon3">URL</span>
+      <input type="text" class="form-control bg-white" id="basic-url"
+             placeholder="http://localhost:9696" [(ngModel)]="prowlarrUrl" [disabled]="!showEditFlag"/>
+      <button class="btn btn-primary" type="button" mdbRipple rippleColor="primary" (click)="editProwlarrUrl()" *ngIf="!showEditFlag">
+        Edit
+      </button>
+      <button class="btn btn-success" type="button" mdbRipple rippleColor="success" (click)="updateProwlarrUrl()" *ngIf="showEditFlag">
+        Update
+      </button>
+    </div>
+  </div>
+</div>

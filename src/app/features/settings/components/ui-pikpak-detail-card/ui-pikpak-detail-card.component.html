@@ -1,21 +1,21 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title text-center">
+    <h5 class="card-title text-center">
       <strong>{{ pikpak.username }}</strong> ({{ pikpak.password.substring(0,4) }}****)
-    </h4>
-    <h5 class="d-flex justify-content-evenly mb-4">
+    </h5>
+    <p class="d-flex lead justify-content-evenly mb-4">
       <span class="badge badge-success" *ngIf="pikpak.status === AccountStatus.ACTIVE">Active</span>
       <span class="badge badge-success" *ngIf="pikpak.accessToken">Access Token</span>
       <span class="badge badge-success" *ngIf="pikpak.refreshToken">Refresh Token</span>
-    </h5>
+    </p>
     <p class="card-text"><strong>Type: </strong>Pikpak Account</p>
     <p class="card-text"><strong>Added At: </strong>{{ pikpak.createdAt | date:"MMM dd, HH:mm:ss" }}</p>
     <p class="card-text"><strong>Updated At: </strong>{{ pikpak.updatedAt | date:"MMM dd, HH:mm:ss" }}</p>
     <p class="card-text"><strong>Operation History: </strong></p>
     <ul class="list-group list-group-light list-group-small">
       <li class="list-group-item px-3 {{history.success?'':'text-danger fw-bold'}}" *ngFor="let history of histories$ | async">
+        <span>{{history.createdAt | date:"MMM dd, HH:mm"}} - </span>
         {{history.title}}
-        <span> at {{history.createdAt | date:"MM/dd, HH:mm"}}</span>
       </li>
     </ul>
   </div>

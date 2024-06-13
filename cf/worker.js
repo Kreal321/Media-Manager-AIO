@@ -11,7 +11,7 @@ addEventListener('fetch', event => {
 async function handleRequest(event) {
   const { request } = event;
 
-  //请求头部、返回对象
+  // Request headers and response object
   let reqHeaders = new Headers(request.headers),
     outBody, outStatus = 200, outStatusText = 'OK', outCt = null, outHeaders = new Headers({
       "Access-Control-Allow-Origin": reqHeaders.get('Origin'),
@@ -20,42 +20,41 @@ async function handleRequest(event) {
     });
 
   try {
-    //取域名第一个斜杠后的所有信息为代理链接
+    // Get the URL to be fetched from the path in the URL
     let url = request.url.substr(8);
     url = decodeURIComponent(url.substr(url.indexOf('/') + 1));
 
-    //需要忽略的代理
+    // Ignore proxy
     if (request.method == "OPTIONS" && reqHeaders.has('access-control-request-headers')) {
-      //输出提示
       return new Response(null, PREFLIGHT_INIT)
     }
     else if(url.length < 3 || url.indexOf('.') == -1 || url == "favicon.ico" || url == "robots.txt") {
       return Response.redirect('https://baidu.com', 301)
     }
-    //阻断
+    // Blocker
     else if (blocker.check(url)) {
       return Response.redirect('https://baidu.com', 301)
     }
     else {
-      //补上前缀 http://
+      // Add http://
       url = url.replace(/https:(\/)*/,'https://').replace(/http:(\/)*/, 'http://')
       if (url.indexOf("://") == -1) {
         url = "http://" + url;
       }
-      //构建 fetch 参数
+      // Build fetch parameters
       let fp = {
         method: request.method,
         headers: {}
       }
 
-      //保留头部其它信息
+      // Keep the other headers
       let he = reqHeaders.entries();
       for (let h of he) {
         if (!['content-length'].includes(h[0])) {
           fp.headers[h[0]] = h[1];
         }
       }
-      // 是否带 body
+      // Check if the request has a body
       if (["POST", "PUT", "PATCH", "DELETE"].indexOf(request.method) >= 0) {
         const ct = (reqHeaders.get('content-type') || "").toLowerCase();
         if (ct.includes('application/json')) {
@@ -70,12 +69,12 @@ async function handleRequest(event) {
           fp.body = await request.blob();
         }
       }
-      // 发起 fetch
+      // Request the URL
       let fr = (await fetch(url, fp));
       outCt = fr.headers.get('content-type');
       if(outCt && (outCt.includes('application/text') || outCt.includes('text/html'))) {
         try {
-          // 添加base
+          // Add base
           let newFr = new HTMLRewriter()
             .on("head", {
               element(element) {
@@ -104,7 +103,7 @@ async function handleRequest(event) {
     });
   }
 
-  //设置类型
+  // Set the content type
   if (outCt && outCt != "") {
     outHeaders.set("content-type", outCt);
   }
@@ -121,7 +120,7 @@ async function handleRequest(event) {
 }
 
 /**
- * 阻断器
+ * Blocker
  */
 const blocker = {
   keys: [".m3u8", ".ts", ".acc", ".m4s", "photocall.tv", "googlevideo.com"],

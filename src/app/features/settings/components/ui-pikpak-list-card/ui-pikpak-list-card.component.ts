@@ -19,14 +19,21 @@ export class UiPikpakListCardComponent {
 
   @Input() pikpakSelected: Pikpak | undefined;
   @Output() pikpakSelectedChange: EventEmitter<Pikpak> = new EventEmitter<Pikpak>();
+  @Output() showPikpakCreationCardFlag: EventEmitter<boolean> = new EventEmitter<boolean>();
   pikpaks$ = liveQuery(() => this.indexeddbService.getPikpaks());
 
   constructor(private indexeddbService: IndexeddbService) { }
 
   changePikpakSelected(id: number) {
+    this.showPikpakCreationCardFlag.emit(false);
     this.indexeddbService.getPikpakById(id).then((pikpak) => {
       this.pikpakSelected = pikpak;
       this.pikpakSelectedChange.emit(pikpak);
     });
+  }
+
+  showPikpakCreationCard() {
+    this.pikpakSelectedChange.emit(undefined);
+    this.showPikpakCreationCardFlag.emit(true);
   }
 }

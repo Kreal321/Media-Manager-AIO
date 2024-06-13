@@ -1,8 +1,17 @@
 <div class="row">
   <div class="col-6 col-xl-4">
-    <app-ui-pikpak-list-card [(pikpakSelected)]="pikpakSelected"></app-ui-pikpak-list-card>
+    <app-ui-pikpak-list-card [(pikpakSelected)]="pikpakSelected" (showPikpakCreationCardFlag)="setShowPikpakCreationCardFlag($event)"></app-ui-pikpak-list-card>
   </div>
   <div class="col-6 col-xl-4" *ngIf="pikpakSelected">
     <app-ui-pikpak-detail-card [pikpak]="pikpakSelected"></app-ui-pikpak-detail-card>
+  </div>
+  <div class="col-6 col-xl-4" *ngIf="showPikpakCreationCardFlag">
+    <app-ui-pikpak-creation-card></app-ui-pikpak-creation-card>
+  </div>
+  <div class="col-6 col-xl-4">
+    <app-ui-cloudflare-detail-card></app-ui-cloudflare-detail-card>
+  </div>
+  <div class="col-6 col-xl-4">
+    <app-ui-prowlarr-detail-card></app-ui-prowlarr-detail-card>
   </div>
 </div>
