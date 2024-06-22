@@ -3,7 +3,7 @@
     <app-ui-pikpak-list-card [(pikpakSelected)]="pikpakSelected" (showPikpakCreationCardFlag)="setShowPikpakCreationCardFlag($event)"></app-ui-pikpak-list-card>
   </div>
   <div class="col-6 col-xl-4" *ngIf="pikpakSelected">
-    <app-ui-pikpak-detail-card [pikpak]="pikpakSelected"></app-ui-pikpak-detail-card>
+    <app-ui-pikpak-detail-card [(pikpak)]="pikpakSelected"></app-ui-pikpak-detail-card>
   </div>
   <div class="col-6 col-xl-4" *ngIf="showPikpakCreationCardFlag">
     <app-ui-pikpak-creation-card></app-ui-pikpak-creation-card>

@@ -46,4 +46,44 @@ export class SettingService {
   removeProwlarrUrl(): void {
     this.removeSetting('prowlarrUrl');
   }
+
+  // Pikpak
+
+  setPikpakConfig(apiHost: string, userHost: string, clientId: string, clientSecret: string): void {
+    this.setSetting('pikpakConfig', JSON.stringify({
+      "apiHost": apiHost,
+      "userHost": userHost,
+      "clientId": clientId,
+      "clientSecret": clientSecret
+    }));
+  }
+
+  getPikpakConfig(): any {
+    const config = this.getSetting('pikpakConfig');
+    if (config) {
+      return JSON.parse(config);
+    }
+    return {
+      apiHost: '',
+      userHost: '',
+      clientId: '',
+      clientSecret: ''
+    };
+  }
+
+  getPikpakApiHost(): string {
+    return this.getPikpakConfig()['apiHost'];
+  }
+
+  getPikpakUserHost(): string {
+    return this.getPikpakConfig()['userHost'];
+  }
+
+  getPikpakClientId(): string {
+    return this.getPikpakConfig()['clientId'];
+  }
+
+  getPikpakClientSecret(): string {
+    return this.getPikpakConfig()['clientSecret'];
+  }
 }

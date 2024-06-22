@@ -1,10 +1,12 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import {from, mergeMap, Observable, of, throwError} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import Swal from 'sweetalert2'
+import {SettingService} from "../services/setting.service";
+import {PikpakService} from "../services/pikpak.service";
 
 
 
@@ -12,7 +14,9 @@ import Swal from 'sweetalert2'
 export class AuthInterceptor implements HttpInterceptor {
 
     constructor(
-        private router: Router
+        private router: Router,
+        private settingService: SettingService,
+        private pikpakService: PikpakService
     ) { }
 
     intercept(
@@ -20,68 +24,70 @@ export class AuthInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
 
-        const headers = new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        let re = new RegExp(this.settingService.getPikpakApiHost() + "|" + this.settingService.getPikpakUserHost(), 'g');
 
-        console.log('intercepted request ... ');
-
-        return next.handle(req.clone(
+        if (re.test(req.url)) {
+          console.log('intercepted pikpak request ... ');
+          return next.handle(req.clone(
             {
-                headers
+              url: this.settingService.getCloudflareUrl() + "/" + req.url,
             }
-        )).pipe(
-            tap({
-                next: (event) => {
+          )).pipe(
+              tap({
+                  next: (event) => {
 
-                }
-            }),
-            catchError((error) => {
-                if (error instanceof HttpErrorResponse) {
-                    if (error.status == 403) {
-                        localStorage.removeItem('token');
-                        Swal.fire({
-                            title: 'You are not logged in',
-                            text: 'Please login first',
-                            showDenyButton: true,
-                            icon: 'error',
-                            confirmButtonText: 'Login',
-                            denyButtonText: 'Continue as guest',
-                            denyButtonColor: '#9fa6b2',
-                        }).then((request) => {
-                            if (request.isConfirmed) {
-                                this.router.navigate(['/login']);
-                            }
-                            if (request.isDenied) {
-                                this.router.navigate(['/register/temp']);
-                            }
-                        })
-                    } else if (error.status == 400) {
-                        Swal.fire({
-                            title: 'Bad Request',
-                            text: error.error.message,
-                            icon: 'error',
-                        })
-                    } else if (error.status == 401) {
-                        this.router.navigateByUrl('/login?success=false');
-                        Swal.fire({
-                            title: 'Auto Login Failed',
-                            text: error.error.message,
-                            icon: 'error',
-                        })
-                    } else {
-                        Swal.fire({
-                            title: 'Network Error',
-                            text: 'Please try again later',
-                            icon: 'error',
-                        })
-                        console.error('An unexpected error occurred: ', error.error.message);
-                        throwError(() => error);
-                    }
-                }
-                return of(error.error);
-            })
-        ) as Observable<HttpEvent<any>>;
+                  }
+              }),
+              catchError((error) => {
+                      // if (error.status == 403) {
+                      //     localStorage.removeItem('token');
+                      //     Swal.fire({
+                      //         title: 'You are not logged in',
+                      //         text: 'Please login first',
+                      //         showDenyButton: true,
+                      //         icon: 'error',
+                      //         confirmButtonText: 'Login',
+                      //         denyButtonText: 'Continue as guest',
+                      //         denyButtonColor: '#9fa6b2',
+                      //     }).then((request) => {
+                      //         if (request.isConfirmed) {
+                      //             this.router.navigate(['/login']);
+                      //         }
+                      //         if (request.isDenied) {
+                      //             this.router.navigate(['/register/temp']);
+                      //         }
+                      //     })
+                      // } else if (error.status == 400) {
+                      //     Swal.fire({
+                      //         title: 'Bad Request',
+                      //         text: error.error.message,
+                      //         icon: 'error',
+                      //     })
+                      // } else if (error.status == 401) {
+                      //     this.router.navigateByUrl('/login?success=false');
+                      //     Swal.fire({
+                      //         title: 'Auto Login Failed',
+                      //         text: error.error.message,
+                      //         icon: 'error',
+                      //     })
+                      // } else {
+                      //     Swal.fire({
+                      //         title: 'Network Error',
+                      //         text: 'Please try again later',
+                      //         icon: 'error',
+                      //     })
+                      //     console.error('An unexpected error occurred: ', error.error.message);
+                      //     throwError(() => error);
+                      // }
+                  // return of(error.error);
+                  throw error.error;
+              })
+          ) as Observable<HttpEvent<any>>;
+
+        }
+
+        console.log('Interpreter: not pikpak request');
+        return next.handle(req);
 
     }
 

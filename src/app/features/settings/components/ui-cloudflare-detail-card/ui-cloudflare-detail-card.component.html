@@ -5,8 +5,8 @@
     </h5>
     <p class="card-text text-center mb-4">Cloudflare is used to proxy the requests to the server.</p>
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon3">URL</span>
-      <input type="text" class="form-control bg-white" id="basic-url"
+      <span class="input-group-text">URL</span>
+      <input type="text" class="form-control bg-white" id="cloudflare-basic-url"
              placeholder="https://BBBB.AAAA.workers.dev" [(ngModel)]="cloudflareUrl" [disabled]="!showEditFlag"/>
       <button class="btn btn-primary" type="button" mdbRipple rippleColor="primary" (click)="editCloudflareUrl()" *ngIf="!showEditFlag">
         Edit

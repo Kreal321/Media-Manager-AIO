@@ -3,6 +3,7 @@ import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
 import {Pikpak} from "../../../../core/models/pikpak.model";
+import {PikpakService} from "../../../../core/services/pikpak.service";
 
 @Component({
   selector: 'app-ui-pikpak-creation-card',
@@ -20,4 +21,12 @@ import {Pikpak} from "../../../../core/models/pikpak.model";
 })
 export class UiPikpakCreationCardComponent {
   pikpak: Pikpak = { } as Pikpak;
+
+  constructor(
+    private pikpakService: PikpakService
+  ) { }
+
+  saveNewPikpak() {
+    this.pikpakService.newPikpak(this.pikpak.username, this.pikpak.password);
+  }
 }

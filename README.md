@@ -9,7 +9,23 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. Prowlarr
 4. flaresolverr (Optional) 
 
+
+## TODOs
+[] Add Pikpak Support
+[] Add Cloudflare Support
+[] Add Prowlarr Support
+[] Add flaresolverr Support
+[] Add Logger
+[] Add IndexedDB for storing data
+[] TMDB API for new movies
+[] Local file rename for tiny media manager
+
 ## Version
+### Build 0.1.3
+- Added Logger
+- Added Pikpak Support
+- Pikpak accounts refresh token and re-login
+
 ### Build 0.1.2
 - Added Cloudflare Settings
 - Added Prowlarr Settings

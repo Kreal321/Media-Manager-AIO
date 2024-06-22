@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title text-center">PikPak</h4>
+    <h5 class="card-title text-center">PikPak</h5>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
@@ -30,6 +30,33 @@
       </table>
     </div>
   </div>
+  <mdb-accordion [flush]="true">
+    <mdb-accordion-item>
+      <ng-template mdbAccordionItemHeader>Settings</ng-template>
+      <ng-template mdbAccordionItemBody>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Api Host</span>
+          <input type="text" class="form-control" id="api-host"
+                 placeholder="ERROR" [(ngModel)]="pikpakApiHost" readonly/>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">User Host</span>
+          <input type="text" class="form-control" id="user-host"
+                 placeholder="ERROR" [(ngModel)]="pikpakUserHost" readonly/>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Client Id</span>
+          <input type="text" class="form-control" id="client-id"
+                 placeholder="ERROR" [(ngModel)]="pikpakClientId" readonly/>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text">Client Secret</span>
+          <input type="text" class="form-control" id="client-secret"
+                 placeholder="ERROR" [(ngModel)]="pikpakClientSecret" readonly/>
+        </div>
+      </ng-template>
+    </mdb-accordion-item>
+  </mdb-accordion>
   <div class="card-footer">
     <div class="text-muted text-center">2 days ago</div>
   </div>

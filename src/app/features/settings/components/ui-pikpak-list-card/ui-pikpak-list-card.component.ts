@@ -2,7 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Pikpak} from "../../../../core/models/pikpak.model";
 import {IndexeddbService} from "../../../../core/services/indexeddb.service";
 import {liveQuery} from "dexie";
-import {AsyncPipe, DatePipe, NgForOf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
+import {MdbAccordionModule} from "mdb-angular-ui-kit/accordion";
+import {SettingService} from "../../../../core/services/setting.service";
+import {MdbRippleModule} from "mdb-angular-ui-kit/ripple";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-ui-pikpak-list-card',
@@ -10,7 +14,12 @@ import {AsyncPipe, DatePipe, NgForOf} from "@angular/common";
   imports: [
     AsyncPipe,
     NgForOf,
-    DatePipe
+    DatePipe,
+    MdbAccordionModule,
+    MdbRippleModule,
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './ui-pikpak-list-card.component.html',
   styleUrl: './ui-pikpak-list-card.component.css'
@@ -22,7 +31,15 @@ export class UiPikpakListCardComponent {
   @Output() showPikpakCreationCardFlag: EventEmitter<boolean> = new EventEmitter<boolean>();
   pikpaks$ = liveQuery(() => this.indexeddbService.getPikpaks());
 
-  constructor(private indexeddbService: IndexeddbService) { }
+  pikpakApiHost: string = this.settingService.getPikpakApiHost();
+  pikpakUserHost: string = this.settingService.getPikpakUserHost();
+  pikpakClientId: string = this.settingService.getPikpakClientId();
+  pikpakClientSecret: string = this.settingService.getPikpakClientSecret();
+
+  constructor(
+    private indexeddbService: IndexeddbService,
+    private settingService: SettingService
+  ) { }
 
   changePikpakSelected(id: number) {
     this.showPikpakCreationCardFlag.emit(false);

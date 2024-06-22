@@ -5,8 +5,8 @@
     </h5>
     <p class="card-text text-center mb-4">Prowlarr is a tool to manage your indexers.</p>
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon3">URL</span>
-      <input type="text" class="form-control bg-white" id="basic-url"
+      <span class="input-group-text">URL</span>
+      <input type="text" class="form-control bg-white" id="prowlarr-basic-url"
              placeholder="http://localhost:9696" [(ngModel)]="prowlarrUrl" [disabled]="!showEditFlag"/>
       <button class="btn btn-primary" type="button" mdbRipple rippleColor="primary" (click)="editProwlarrUrl()" *ngIf="!showEditFlag">
         Edit
